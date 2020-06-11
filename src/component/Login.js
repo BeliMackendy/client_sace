@@ -66,7 +66,7 @@ const Login = ({setAuth}) => {
               </button>
               <p style={{ fontSize: 13 }}>
                 Vous n'avez pas de compte?
-                <a href="#"> Inscrivez-vous ici</a>
+                <a href="ouverturedossier"> Inscrivez-vous ici</a>
               </p>
             </div>
           </div>

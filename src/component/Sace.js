@@ -3,6 +3,7 @@ import Menu from "./Menu";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Accueil from "./Accueil";
 import Login from "./Login";
+import OuvertureDossier from "./OuvertureDossier";
 
 const Sace = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -27,6 +28,7 @@ const Sace = () => {
         <Switch>
           {/* <Route exact path="/accueil" component={Accueil} /> */}
           {/* <Route exact path="/login" component={Login} /> */}
+          <Route exact path="/ouverturedossier" component={OuvertureDossier} />
           <Route
             exact
             path="/login"
@@ -46,7 +48,6 @@ const Sace = () => {
                 <Accueil
                   {...props}
                   setAuth={setAuth}
-                  //   currentUser={currentUser}
                   setPostUser={setPostUser}
                 />
               ) : (
