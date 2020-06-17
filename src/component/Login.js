@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const Login = ({setAuth}) => {
+const Login = ({ setAuth, setUser }) => {
   const [postUser, setPostUser] = useState({
     email: "",
     password: "",
@@ -17,10 +17,11 @@ const Login = ({setAuth}) => {
     axios
       .post(urlLogin, postUser)
       .then(async (res) => {
-        console.log(res.data);
+        // console.log(res.data);
         const parseRes = await res.data;
         localStorage.setItem("token", parseRes.token);
-        setAuth(true)
+        setAuth(true);
+        setUser(postUser.email);
       })
       .catch((err) => {
         console.log(err);

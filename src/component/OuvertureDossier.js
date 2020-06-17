@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+
 import Form1Inscription from "./Form1Inscription";
 import Form2Inscription from "./Form2Inscription";
 import Form3Inscription from "./Form3Inscription";
@@ -23,12 +23,13 @@ const OuvertureDossier = () => {
 
   const form3data = {
     password: "",
+    date_demande: "",
   };
 
   const [currentform, setCurrentform] = useState(1);
   const [dataform1, setdataform1] = useState(form1data);
   const [dataform2, setdataform2] = useState(form2data);
-  const [dataform3, setdataform3] = useState(form3data); 
+  const [dataform3, setdataform3] = useState(form3data);
 
   return (
     <>

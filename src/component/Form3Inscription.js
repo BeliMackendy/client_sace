@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 const Form3Inscription = ({
   setCurrentform,
@@ -8,9 +9,24 @@ const Form3Inscription = ({
   dataform3,
   setdataform3,
 }) => {
+  const url_ouverture = "http://localhost:3001/app/sace/ouverture";
+  const url_addUser = "http://localhost:3001/app/sace/addUser";
+
   const initform = (e) => {
     setdataform3({ ...dataform3, [e.target.name]: e.target.value });
   };
+
+  const createInstitution = (data) => {
+    axios
+      .post(url_ouverture, data)
+      .then((res) => {
+        // console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      }, []);
+  };
+
   const submitForm = (e) => {
     const setformdataInstitution = {
       denomination: dataform2.denomination,
@@ -22,14 +38,18 @@ const Form3Inscription = ({
       section_communale: dataform2.section_communale,
       bds: dataform2.bds,
       biz: dataform2.biz,
-      categorie: "0",
+      categorie: "1",
       typecategorie: "",
-      niveau: "0",
-      vacation: "0",
-      programme: "0",
+      niveau: "1",
+      vacation: "1",
+      modalite_fonctionnement: "1",
+      programme: "1",
       typeprogramme: "",
-      cible: "0",
-      date_demande: "0000-00-00",
+      affiliation:"",
+      institution_affiliation:"",
+      cible: "1",
+      date_demande: dataform3.date_demande,
+      user: dataform1.email,
     };
 
     const setformdataUser = {
@@ -42,6 +62,16 @@ const Form3Inscription = ({
     };
     console.log(setformdataInstitution);
     console.log(setformdataUser);
+
+    axios
+      .post(url_addUser, setformdataUser)
+      .then((res) => {
+        createInstitution(setformdataInstitution);  
+      })
+      .catch((err) => {
+        console.log(err);
+      }, []);
+   
     // setCurrentform(currentform + 1);
   };
   return (
@@ -59,7 +89,7 @@ const Form3Inscription = ({
                     type="text"
                     readOnly
                     className="form-control"
-                    //   value={postDemandeur.email}
+                    value={dataform1.email}
                   />
                 </div>
                 <div className="form-group">
@@ -67,6 +97,15 @@ const Form3Inscription = ({
                   <input
                     type="password"
                     name="password"
+                    className="form-control"
+                    onChange={initform}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Date</label>
+                  <input
+                    type="date"
+                    name="date_demande"
                     className="form-control"
                     onChange={initform}
                   />

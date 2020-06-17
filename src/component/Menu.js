@@ -2,8 +2,10 @@ import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-const Menu = ({ setAuth, setUser,postUser, isAuthenticated }) => {
-  
+import { Link } from "react-router-dom";
+
+const Menu = ({ setAuth, setUser, postUser, isAuthenticated }) => {
+  // console.log(postUser);
   const deconnecter = (e) => {
     localStorage.removeItem("token");
     setAuth(false);
@@ -11,13 +13,13 @@ const Menu = ({ setAuth, setUser,postUser, isAuthenticated }) => {
   };
 
   const statusbutton = isAuthenticated ? (
-    <button className="btn btn-primary text-uppercase" onClick={deconnecter}>
+    <Link to="login" onClick={deconnecter} className="login_link">
       Deconnexion
-    </button>
+    </Link>
   ) : (
-    <button className="btn btn-primary text-uppercase" onClick={deconnecter}>
-      Connecter
-    </button>
+    <Link to="login" className="login_link">
+      Connexion
+    </Link>
   );
   return (
     <>
@@ -37,12 +39,12 @@ const Menu = ({ setAuth, setUser,postUser, isAuthenticated }) => {
             <LinkContainer to="/accueil">
               <Nav.Link>Accueil</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/ouverture">
+            <LinkContainer to="/dossier">
               <Nav.Link>Demande d'Ouverture</Nav.Link>
             </LinkContainer>
           </Nav>
           {postUser}
-          {statusbutton}         
+          {statusbutton}
         </Navbar.Collapse>
       </Navbar>
     </>

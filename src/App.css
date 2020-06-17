@@ -1,13 +1,41 @@
-.App {
+/* .App {
  
-}
+} */
 
 .App-link {
   color: #61dafb;
 }
 
-.mainformulaire
+.m-formulaire{
+  margin-top: 2px;
+}
+
+.m-formulaire ul>li:hover{
+  color:white;
+  background-color: lightblue;
+}
+
+.mainformaulaire
 {
-  margin-top: 70px;
   width: 98%;
+}
+
+.route_main2{
+  /* overflow: auto; */
+  /* height: 580px; */
+}
+
+.login_link{
+  color: white;
+}
+
+.bar_etape
+{
+  background-color: #ADD8E6;
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 20px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;  
 }

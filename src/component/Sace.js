@@ -1,9 +1,10 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import Menu from "./Menu";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import Accueil from "./Accueil";
+
 import Login from "./Login";
 import OuvertureDossier from "./OuvertureDossier";
+import DossierInstitution from "./DossierInstitution";
 
 const Sace = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -11,10 +12,10 @@ const Sace = () => {
 
   const setAuth = (Boolean) => {
     setIsAuthenticated(Boolean);
-  };  
+  };
   const setUser = (user) => {
     setPostUser(user);
-  };  
+  };
 
   return (
     <div>
@@ -34,7 +35,7 @@ const Sace = () => {
             path="/login"
             render={(props) =>
               !isAuthenticated ? (
-                <Login {...props} setAuth={setAuth} />
+                <Login {...props} setAuth={setAuth} setUser={setUser} />
               ) : (
                 <Redirect to="/Accueil" />
               )
@@ -42,12 +43,13 @@ const Sace = () => {
           />
           <Route
             exact
-            path="/accueil"
+            path="/dossier"
             render={(props) =>
               isAuthenticated ? (
-                <Accueil
+                <DossierInstitution
                   {...props}
                   setAuth={setAuth}
+                  postUser={postUser}
                   setPostUser={setPostUser}
                 />
               ) : (
