@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import axios from "axios";
 import Categorie from "./Categorie";
 import Niveau from "./Niveau";
@@ -8,63 +8,21 @@ import ModaliteFonctionnement from "./ModaliteFonctionnement";
 import Programme from "./Programme";
 
 const FormInstitution = ({ postInstitution }) => {
-  const [Id_institution, setId_institution] = useState();
-  const [denomination, setDenomination] = useState();
+  const [institution, setInstitution] = useState(postInstitution);
 
   const url_updateInstitutionuser =
     "http://localhost:3001/app/sace/institutionUpdate";
 
-  useEffect(() => {
-    postInstitution.map((i) => {
-      setDenomination(i.denomination);
-    });
-  });  
-
-  const [dataInstintution, setdataInstintution] = useState({   
-    adresse: "",
-    tel: "",
-    email: "",
-    categorie: "",
-    type_categorie: "",
-    niveau: "",
-    vacation: "",
-    modalite: "",
-    programme: "",
-    type_programme: "",
-    cible: "",
-    affiliation: "",
-    institution_affiliation: "",
-  });
-
   const initData = (name, value) => {
-    setdataInstintution({
-      ...dataInstintution,
+    setInstitution({
+      ...institution,
       [name]: value,
     });
   };
 
   const submitForm = (e) => {
-    postInstitution.map((i) => {
-      setId_institution(i.Id_institution);
-    });
-    const data = {
-      institution_: Id_institution,
-      adresse: dataInstintution.adresse,
-      tel: dataInstintution.tel,
-      email: dataInstintution.email,
-      categorie: dataInstintution.categorie,
-      type_categorie: dataInstintution.type_categorie,
-      niveau: dataInstintution.niveau,
-      vacation: dataInstintution.vacation,
-      modalite: dataInstintution.modalite,
-      programme: dataInstintution.programme,
-      type_programme: dataInstintution.type_programme,
-      cible: dataInstintution.cible,
-      affiliation: dataInstintution.affiliation,
-      institution_affiliation: dataInstintution.institution_affiliation,
-    };
     axios
-      .post(url_updateInstitutionuser, data)
+      .post(url_updateInstitutionuser, institution)
       .then((res) => {
         // setPostInstitution(res.data);
       })
@@ -79,7 +37,9 @@ const FormInstitution = ({ postInstitution }) => {
         <div className="col-12">
           <div className="row d-flex justify-content-between pt-3">
             <h4>Etablissement Scolaire</h4>
-            <p className="text-bold text-center">{denomination}</p>
+            <p className="text-bold text-center">
+              {postInstitution.denomination}
+            </p>
           </div>
 
           <form className="form  py-2">
@@ -90,6 +50,7 @@ const FormInstitution = ({ postInstitution }) => {
                   <input
                     type="text"
                     name="adresse"
+                    value={institution.adresse}
                     onChange={(e) => initData(e.target.name, e.target.value)}
                     className="form-control"
                   />
@@ -101,6 +62,7 @@ const FormInstitution = ({ postInstitution }) => {
                   <input
                     type="text"
                     name="tel"
+                    value={institution.tel}
                     onChange={(e) => initData(e.target.name, e.target.value)}
                     className="form-control"
                   />
@@ -112,6 +74,7 @@ const FormInstitution = ({ postInstitution }) => {
                   <input
                     type="email"
                     name="email"
+                    value={institution.email}
                     onChange={(e) => initData(e.target.name, e.target.value)}
                     className="form-control"
                   />
@@ -122,30 +85,39 @@ const FormInstitution = ({ postInstitution }) => {
 
             <div className="row border border-info rounded my-1 p-2">
               <div className="col-12">
-                <Categorie initData={initData} />
+              <Categorie initData={initData} institution={institution} />
+                {/* {React.useMemo(
+                  () => (
+                    <Categorie initData={initData} institution={institution} />
+                  ),
+                  [initData, institution]
+                )} */}
               </div>
             </div>
             <div className="row border border-info rounded my-1 p-2">
               <div className="col-6">
-                <Niveau initData={initData} />
+                <Niveau initData={initData} institution={institution} />
               </div>
               <div className="col-6">
-                <PublicCible initData={initData} />
+                <PublicCible initData={initData} institution={institution} />
               </div>
             </div>
             <div className="row border border-info rounded my-1 p-2">
               {/* <div col-12> */}
               <div className="col-6">
-                <Vacation initData={initData} />
+                <Vacation initData={initData} institution={institution} />
               </div>
               <div className="col-6">
-                <ModaliteFonctionnement initData={initData} />
+                <ModaliteFonctionnement
+                  initData={initData}
+                  institution={institution}
+                />
               </div>
               {/* </div> */}
             </div>
             <div className="row border border-info rounded my-1 p-2">
               <div className="col-12">
-                <Programme initData={initData} />
+                <Programme initData={initData} institution={institution} />
               </div>
             </div>
           </form>

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const Categorie = ({ initData }) => {
+const Categorie = ({ initData, institution }) => {
   const [categorie, setCategorie] = useState([]);
-  const [sosucategorie, setSousCategorie] = useState([]);
+  const [souscategorie, setSousCategorie] = useState([]);
   const [postmission, setMission] = useState();
   const [typemission, setTypemission] = useState([]);
   const [autretypemission, setAutreTypemission] = useState();
   const [text_typemission, setText_typemission] = useState(true);
+  
 
   const mission_handler = (e) => {
     const name = "type_categorie";
@@ -29,6 +30,7 @@ const Categorie = ({ initData }) => {
     setAutreTypemission(value);
     initData(name, value);
   };
+
   const mission =
     postmission == "Mission" &&
     typemission.map((e, index) => (
@@ -65,24 +67,32 @@ const Categorie = ({ initData }) => {
   const url_sous_souscategorie =
     "http://localhost:3001/app/sace/sous_souscategorie";
 
-  useEffect(() => {
-    axios
+    const LoadCategorie = async()=>{
+      axios
       .get(url_categorie)
       .then((res) => {
         // console.log(res.data);
-        if (res.data.Libelle_Categorie !== null) setCategorie(res.data);
+        setCategorie(res.data);
       })
       .catch((err) => {
         console.log(err);
-      }, []);
-  });
+      })
+    }
+  
 
-  const categorie_handler = (e) => {
+  useEffect(() => {
+   LoadCategorie() 
+  },[]);
+
+  console.log(categorie);
+
+  const categorie_handler = async (e) => {
     const data = {
       Id_categorie: e.target.value,
     };
-    initData(e.target.name, e.target.value);
-    axios
+  //  console.log("wwww")
+   initData(e.target.name, e.target.value);
+   await axios
       .post(url_souscategorie, data)
       .then((res) => {
         // console.log(res.data);
@@ -90,11 +100,13 @@ const Categorie = ({ initData }) => {
       })
       .catch((err) => {
         console.log(err);
-      }, []);
+      });
+     
+
   };
 
   const souscategorie_handler = (e) => {
-    const souscategorie_select = sosucategorie.filter(function (o) {
+    const souscategorie_select = souscategorie.filter(function (o) {
       return o.Id_souscategorie == e.target.value;
     });
     setMission(souscategorie_select[0].Libelle_souscategorie);
@@ -118,6 +130,22 @@ const Categorie = ({ initData }) => {
     }
   };
 
+  const categ = (
+    <>
+      {categorie.map((post, index) =>
+        post.IdCategorie === institution.categorie ? (
+          <option key={index} value={post.IdCategorie} selected="selected">
+            {post.Libelle_Categorie}
+          </option>
+        ) : (
+          <option key={index} value={post.IdCategorie}>
+            {post.Libelle_Categorie}
+          </option>
+        )
+      )}
+    </>
+  );
+
   return (
     <>
       <div className="row">
@@ -129,16 +157,12 @@ const Categorie = ({ initData }) => {
             onChange={categorie_handler}
           >
             <option value="0">Selection Catégorie</option>
-            {categorie.map((post, index) => (
-              <option key={index} value={post.IdCategorie}>
-                {post.Libelle_Categorie}
-              </option>
-            ))}
+            {categ}
           </select>
         </div>
 
         <fieldset className="col-6">
-          {sosucategorie.map((p, index) => (
+          {souscategorie.map((p, index) => (
             <div
               className="form-check form-check-inline form-group"
               key={index}

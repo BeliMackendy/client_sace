@@ -17,7 +17,6 @@ const Login = ({ setAuth, setUser }) => {
     axios
       .post(urlLogin, postUser)
       .then(async (res) => {
-        // console.log(res.data);
         const parseRes = await res.data;
         localStorage.setItem("token", parseRes.token);
         setAuth(true);
@@ -26,7 +25,6 @@ const Login = ({ setAuth, setUser }) => {
       .catch((err) => {
         console.log(err);
       }, []);
-    // console.log(postUser);
   };
 
   return (

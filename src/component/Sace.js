@@ -1,21 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Menu from "./Menu";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Switch,
+  Redirect,
+  useHistory,
+} from "react-router-dom";
 
 import Login from "./Login";
 import OuvertureDossier from "./OuvertureDossier";
 import DossierInstitution from "./DossierInstitution";
 
 const Sace = () => {
+  const histo = useHistory();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [postUser, setPostUser] = useState();
+
+  const url_user = "http://localhost:3001/app/sace/me";
 
   const setAuth = (Boolean) => {
     setIsAuthenticated(Boolean);
   };
+
   const setUser = (user) => {
     setPostUser(user);
   };
+
+  const getMe = async () => {
+    await axios
+      .get(url_user, { headers: { "x-auth-token": localStorage.token } })
+      .then((res) => {
+        console.log(res.data[0]);
+        setUser(res.data[0].email);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {    
+    if (!localStorage.token) {
+      histo.push("/login");
+    } else {
+      getMe();
+      setAuth(true);
+    }
+  }, []);
 
   return (
     <div>

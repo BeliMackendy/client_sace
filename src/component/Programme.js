@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const Programme = ({ initData }) => {
+const Programme = ({ initData, institution }) => {
   const [postprogramme, setPostProgramme] = useState([]);
   const [programme_type, setProgramme_type] = useState([]);
   const [programme, setProgramme] = useState();
@@ -17,8 +17,8 @@ const Programme = ({ initData }) => {
   const url_programme_etranger =
     "http://localhost:3001/app/sace/programme_etranger";
 
-  useEffect(() => {
-    axios
+    const loadProgramme = async()=>{
+     await axios
       .get(url_programme)
       .then((res) => {
         // console.log(res.data);
@@ -26,13 +26,19 @@ const Programme = ({ initData }) => {
       })
       .catch((err) => {
         console.log(err);
-      }, []);
-  });
+      })
+    }
+
+  useEffect(() => {
+    loadProgramme();
+  },[]);
+  
   const init = () => {
     const name = "type_programme";
     const value = "";
     initData(name, value);
   };
+
   const programme_handler = (e) => {
     const programme_select = postprogramme.filter(function (o) {
       return o.id == e.target.value;
@@ -74,8 +80,7 @@ const Programme = ({ initData }) => {
           }, []);
       }
     }
-    // init();
-    // initData(name, value);
+    
   };
 
   const type_programme_handler = (e) => {
@@ -144,6 +149,22 @@ const Programme = ({ initData }) => {
       </>
     );
 
+  const prog = (
+    <>
+      {postprogramme.map((post, index) =>
+        post.id === institution.programme ? (
+          <option key={index} value={post.id} selected="selected">
+            {post.libelle_programme}
+          </option>
+        ) : (
+          <option key={index} value={post.id}>
+            {post.libelle_programme}
+          </option>
+        )
+      )}
+    </>
+  );
+
   return (
     <>
       <div className="row">
@@ -155,11 +176,7 @@ const Programme = ({ initData }) => {
             onChange={programme_handler}
           >
             <option value="0">Selection Programme</option>
-            {postprogramme.map((post, index) => (
-              <option key={index} value={post.id}>
-                {post.libelle_programme}
-              </option>
-            ))}
+            {prog}
           </select>
         </div>
 

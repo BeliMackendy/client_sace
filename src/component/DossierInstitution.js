@@ -6,21 +6,24 @@ import FormInstitution from "./FormInstitution";
 
 const DossierInstitution = ({ postUser }) => {
   const [postInstitution, setPostInstitution] = useState([]);
-  const url_getInstitutionuser =
-    "http://localhost:3001/app/sace/selectInstitutionUser";
+  const url_getInstitutionuser = "http://localhost:3001/app/sace/selectInstitutionUser";
 
   const data = { user: postUser };
 
-  useEffect(() => {
-    axios
+  const loadInstitution = async()=>{
+    await axios
       .post(url_getInstitutionuser, data)
       .then((res) => {
-        setPostInstitution(res.data);
+        setPostInstitution(res.data[0]);
       })
       .catch((err) => {
         console.log(err);
-      }, []);
-  });
+      })
+  }
+
+  useEffect(() => {
+    loadInstitution()
+  },[]);
 
   return (
     <div className="container-fluid">
@@ -35,11 +38,14 @@ const DossierInstitution = ({ postUser }) => {
                 exact
                 path="/Ouverture"
                 render={(props) => (
+                 <>
+                  {console.log("Test debugging")}
                   <FormInstitution
                     {...props}
                     postInstitution={postInstitution}
                     // setPostInstitution={setPostInstitution}
                   />
+                  </>
                 )}
               />
             </div>
