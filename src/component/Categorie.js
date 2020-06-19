@@ -134,7 +134,7 @@ const Categorie = ({ initData, institution }) => {
     <>
       {categorie.map((post, index) =>
         post.IdCategorie === institution.categorie ? (
-          <option key={index} value={post.IdCategorie} selected="selected">
+          <option key={index} value={post.IdCategorie} selected>
             {post.Libelle_Categorie}
           </option>
         ) : (
@@ -155,6 +155,7 @@ const Categorie = ({ initData, institution }) => {
             className="form-control"
             name="categorie"
             onChange={categorie_handler}
+            
           >
             <option value="0">Selection Catégorie</option>
             {categ}

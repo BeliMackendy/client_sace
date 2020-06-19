@@ -3,14 +3,17 @@ import axios from "axios";
 import { BrowserRouter, Route } from "react-router-dom";
 import MenuDossier from "./MenuDossier";
 import FormInstitution from "./FormInstitution";
+import FormFondateur from "./FormFondateur";
+import FormDocument from "./Form_Document";
 
 const DossierInstitution = ({ postUser }) => {
   const [postInstitution, setPostInstitution] = useState([]);
-  const url_getInstitutionuser = "http://localhost:3001/app/sace/selectInstitutionUser";
+  const url_getInstitutionuser =
+    "http://localhost:3001/app/sace/selectInstitutionUser";
 
   const data = { user: postUser };
 
-  const loadInstitution = async()=>{
+  const loadInstitution = async () => {
     await axios
       .post(url_getInstitutionuser, data)
       .then((res) => {
@@ -18,12 +21,12 @@ const DossierInstitution = ({ postUser }) => {
       })
       .catch((err) => {
         console.log(err);
-      })
-  }
+      });
+  };
 
   useEffect(() => {
-    loadInstitution()
-  },[]);
+    loadInstitution();
+  }, []);
 
   return (
     <div className="container-fluid">
@@ -36,15 +39,37 @@ const DossierInstitution = ({ postUser }) => {
             <div>
               <Route
                 exact
-                path="/Ouverture"
+                path="/Etablissement"
                 render={(props) => (
-                 <>
-                  {console.log("Test debugging")}
-                  <FormInstitution
-                    {...props}
-                    postInstitution={postInstitution}
-                    // setPostInstitution={setPostInstitution}
-                  />
+                  <>
+                    <FormInstitution
+                      {...props}
+                      postInstitution={postInstitution}                     
+                    />
+                  </>
+                )}
+              />
+              <Route
+                exact
+                path="/Fondateur"
+                render={(props) => (
+                  <>
+                    <FormFondateur
+                      {...props}
+                      postInstitution={postInstitution}                     
+                    />
+                  </>
+                )}
+              />
+              <Route
+                exact
+                path="/Document"
+                render={(props) => (
+                  <>
+                    <FormDocument
+                      {...props}
+                      postInstitution={postInstitution}                     
+                    />
                   </>
                 )}
               />

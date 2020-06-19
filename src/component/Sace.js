@@ -31,8 +31,7 @@ const Sace = () => {
   const getMe = async () => {
     await axios
       .get(url_user, { headers: { "x-auth-token": localStorage.token } })
-      .then((res) => {
-        console.log(res.data[0]);
+      .then((res) => {        
         setUser(res.data[0].email);
       })
       .catch((err) => {
@@ -58,9 +57,7 @@ const Sace = () => {
           setAuth={setAuth}
           setUser={setUser}
         />
-        <Switch>
-          {/* <Route exact path="/accueil" component={Accueil} /> */}
-          {/* <Route exact path="/login" component={Login} /> */}
+        <Switch>         
           <Route exact path="/ouverturedossier" component={OuvertureDossier} />
           <Route
             exact

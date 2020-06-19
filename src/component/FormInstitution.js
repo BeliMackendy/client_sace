@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Categorie from "./Categorie";
 import Niveau from "./Niveau";
@@ -85,13 +85,7 @@ const FormInstitution = ({ postInstitution }) => {
 
             <div className="row border border-info rounded my-1 p-2">
               <div className="col-12">
-              <Categorie initData={initData} institution={institution} />
-                {/* {React.useMemo(
-                  () => (
-                    <Categorie initData={initData} institution={institution} />
-                  ),
-                  [initData, institution]
-                )} */}
+                <Categorie initData={initData} institution={institution} />
               </div>
             </div>
             <div className="row border border-info rounded my-1 p-2">
@@ -103,7 +97,6 @@ const FormInstitution = ({ postInstitution }) => {
               </div>
             </div>
             <div className="row border border-info rounded my-1 p-2">
-              {/* <div col-12> */}
               <div className="col-6">
                 <Vacation initData={initData} institution={institution} />
               </div>
@@ -113,7 +106,6 @@ const FormInstitution = ({ postInstitution }) => {
                   institution={institution}
                 />
               </div>
-              {/* </div> */}
             </div>
             <div className="row border border-info rounded my-1 p-2">
               <div className="col-12">
@@ -131,6 +123,7 @@ const FormInstitution = ({ postInstitution }) => {
           </button>
         </div>
       </div>
+   
     </div>
   );
 };
