@@ -6,7 +6,7 @@ import {
   Route,
   Switch,
   Redirect,
-  useHistory,
+  // useHistory,
 } from "react-router-dom";
 
 import Login from "./Login";
@@ -14,7 +14,7 @@ import OuvertureDossier from "./OuvertureDossier";
 import DossierInstitution from "./DossierInstitution";
 
 const Sace = () => {
-  const histo = useHistory();
+  // const histo = useHistory();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [postUser, setPostUser] = useState();
 
@@ -41,7 +41,7 @@ const Sace = () => {
 
   useEffect(() => {    
     if (!localStorage.token) {
-      histo.push("/login");
+      // histo.push("/login");      
     } else {
       getMe();
       setAuth(true);
