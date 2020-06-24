@@ -7,11 +7,14 @@ import Vacation from "./Vacation";
 import ModaliteFonctionnement from "./ModaliteFonctionnement";
 import Programme from "./Programme";
 
-const FormInstitution = ({ postInstitution }) => {
+const FormInstitution = ({ postInstitution,url }) => {
   const [institution, setInstitution] = useState(postInstitution);
 
-  const url_updateInstitutionuser =
-    "http://localhost:3001/app/sace/institutionUpdate";
+  // const url_updateInstitutionuser =
+  //   "http://localhost:3001/app/sace/institutionUpdate";
+    
+    const url_updateInstitutionuser =
+    url+"/institutionUpdate";
 
   const initData = (name, value) => {
     setInstitution({

@@ -4,7 +4,9 @@ import Form1Inscription from "./Form1Inscription";
 import Form2Inscription from "./Form2Inscription";
 import Form3Inscription from "./Form3Inscription";
 
-const OuvertureDossier = () => {
+import Login from "./Login";
+
+const OuvertureDossier = ({url}) => {
   const form1data = {
     nom: "",
     prenom: "",
@@ -60,10 +62,12 @@ const OuvertureDossier = () => {
             dataform2={dataform2}
             dataform3={dataform3}
             setdataform3={setdataform3}
+            url={url}
           />
         </>
       ) : (
         <>
+          <Login/>
           {/* <DossierEtablissement /> */}
           {/* <Form4 setCurrentform={setCurrentform}  currentform={currentform}  form_data2={form2_data} /> */}
         </>

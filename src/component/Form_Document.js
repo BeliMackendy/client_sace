@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const Form_Document = ({ postInstitution }) => {
+const Form_Document = ({ postInstitution,url }) => {
   const [postDocuments, setPostDocuments] = useState({
     lettre_demande: "",
     titre_propriete: "",
@@ -32,8 +32,11 @@ const Form_Document = ({ postInstitution }) => {
       }, []);
   };
   const submitForm = () => {
-    const url_documents_soumettre =
-      "http://localhost:3001/app/sace/documents_soumettre";
+    // const url_documents_soumettre =
+    //   "http://localhost:3001/app/sace/documents_soumettre";
+
+ const url_documents_soumettre =
+      url+"/documents_soumettre";
 
     const formData = new FormData();
 

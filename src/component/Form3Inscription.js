@@ -8,9 +8,13 @@ const Form3Inscription = ({
   dataform2,
   dataform3,
   setdataform3,
+  url
 }) => {
-  const url_ouverture = "http://localhost:3001/app/sace/ouverture";
-  const url_addUser = "http://localhost:3001/app/sace/addUser";
+  // const url_ouverture = "http://localhost:3001/app/sace/ouverture";
+  // const url_addUser = "http://localhost:3001/app/sace/addUser";
+
+  const url_ouverture = url+"/ouverture";
+  const url_addUser = url+"/addUser";
 
   const initform = (e) => {
     setdataform3({ ...dataform3, [e.target.name]: e.target.value });
@@ -28,6 +32,7 @@ const Form3Inscription = ({
   };
 
   const submitForm = (e) => {
+    console.log(url)
     const setformdataInstitution = {
       denomination: dataform2.denomination,
       adresse: "",
@@ -48,7 +53,7 @@ const Form3Inscription = ({
       affiliation:"",
       institution_affiliation:"",
       cible: "1",
-      date_demande: dataform3.date_demande,
+      // date_demande: dataform3.date_demande,
       user: dataform1.email,
     };
 
@@ -72,7 +77,7 @@ const Form3Inscription = ({
         console.log(err);
       }, []);
    
-    // setCurrentform(currentform + 1);
+    setCurrentform(currentform + 1);
   };
   return (
     <div className="container mainformulaire">
@@ -101,7 +106,7 @@ const Form3Inscription = ({
                     onChange={initform}
                   />
                 </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                   <label>Date</label>
                   <input
                     type="date"
@@ -109,7 +114,7 @@ const Form3Inscription = ({
                     className="form-control"
                     onChange={initform}
                   />
-                </div>
+                </div> */}
               </form>
               <button className="btn btn-primary" onClick={submitForm}>
                 Terminer

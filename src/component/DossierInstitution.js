@@ -6,10 +6,12 @@ import FormInstitution from "./FormInstitution";
 import FormFondateur from "./FormFondateur";
 import FormDocument from "./Form_Document";
 
-const DossierInstitution = ({ postUser }) => {
+const DossierInstitution = ({ postUser,url }) => {
   const [postInstitution, setPostInstitution] = useState([]);
-  const url_getInstitutionuser =
-    "http://localhost:3001/app/sace/selectInstitutionUser";
+  // const url_getInstitutionuser =
+  //   "http://localhost:3001/app/sace/selectInstitutionUser";
+   
+    const url_getInstitutionuser =url+"/selectInstitutionUser";
 
   const data = { user: postUser };
 
@@ -44,7 +46,8 @@ const DossierInstitution = ({ postUser }) => {
                   <>
                     <FormInstitution
                       {...props}
-                      postInstitution={postInstitution}                     
+                      postInstitution={postInstitution}  
+                      url={url}                   
                     />
                   </>
                 )}
@@ -56,7 +59,8 @@ const DossierInstitution = ({ postUser }) => {
                   <>
                     <FormFondateur
                       {...props}
-                      postInstitution={postInstitution}                     
+                      postInstitution={postInstitution}  
+                      url={url}                   
                     />
                   </>
                 )}
@@ -68,7 +72,8 @@ const DossierInstitution = ({ postUser }) => {
                   <>
                     <FormDocument
                       {...props}
-                      postInstitution={postInstitution}                     
+                      postInstitution={postInstitution}  
+                      url={url}                   
                     />
                   </>
                 )}

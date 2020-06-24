@@ -18,7 +18,8 @@ const Sace = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [postUser, setPostUser] = useState();
 
-  const url_user = "http://localhost:3001/app/sace/me";
+  const url = "http://localhost:3001/app/sace";
+  const url_user = url + "/me";
 
   const setAuth = (Boolean) => {
     setIsAuthenticated(Boolean);
@@ -31,7 +32,7 @@ const Sace = () => {
   const getMe = async () => {
     await axios
       .get(url_user, { headers: { "x-auth-token": localStorage.token } })
-      .then((res) => {        
+      .then((res) => {
         setUser(res.data[0].email);
       })
       .catch((err) => {
@@ -39,9 +40,9 @@ const Sace = () => {
       });
   };
 
-  useEffect(() => {    
+  useEffect(() => {
     if (!localStorage.token) {
-      // histo.push("/login");      
+      // histo.push("/login");
     } else {
       getMe();
       setAuth(true);
@@ -57,14 +58,19 @@ const Sace = () => {
           setAuth={setAuth}
           setUser={setUser}
         />
-        <Switch>         
-          <Route exact path="/ouverturedossier" component={OuvertureDossier} />
+        <Switch>
+          {/* <Route exact path="/ouverturedossier"  component={OuvertureDossier} /> */}
+          <Route
+            exact
+            path="/ouverturedossier"
+            render={(props) => <OuvertureDossier {...props} url={url} />}
+          />
           <Route
             exact
             path="/login"
             render={(props) =>
               !isAuthenticated ? (
-                <Login {...props} setAuth={setAuth} setUser={setUser} />
+                <Login {...props} setAuth={setAuth} setUser={setUser} url={url} />
               ) : (
                 <Redirect to="/Accueil" />
               )
@@ -80,6 +86,7 @@ const Sace = () => {
                   setAuth={setAuth}
                   postUser={postUser}
                   setPostUser={setPostUser}
+                  url={url}
                 />
               ) : (
                 <Redirect to="/login" />

@@ -22,8 +22,7 @@ const Form_Collectifs = ({Initformnomscollectifs}) => {
      setPostInputform({
        ...postInputform,
        [e.target.name]: e.target.files[0],
-     });
-     
+     });     
    }
  };
 
@@ -62,13 +61,12 @@ const Form_Collectifs = ({Initformnomscollectifs}) => {
           </div>
         </div>
         <div className="col-6">
-          <div class="form-group">
+          <div className="form-group">
             <label>Acte constitutif</label>
             <input
               type="file"
               name="acte_constitutif"
-                onChange={Initform}
-              // value={postInputform.acte_constitutif}
+                onChange={Initform}             
               className="form-control"
             />
           </div>
@@ -82,8 +80,7 @@ const Form_Collectifs = ({Initformnomscollectifs}) => {
             <input
               type="file"
               name="reconnaissance"
-              onChange={Initform}
-              // value={postInputform.reconnaissance}
+              onChange={Initform}              
               className="form-control"
             />
           </div>
@@ -94,8 +91,7 @@ const Form_Collectifs = ({Initformnomscollectifs}) => {
             <input
               type="file"
               name="copie_p_identite"
-              onChange={Initform}
-              // value={postInputform.copie_p_identite}
+              onChange={Initform}             
               className="form-control"
             />
           </div>

@@ -15,26 +15,21 @@ const Form_P_morale = ({Initformpersonne_morale}) => {
         nature: "",
         reconnaissance: "",
         quitus_patente: "",
-      });
-      
-      console.log(postInputform)
+      });      
+    
       useEffect(() => {
         Initformpersonne_morale(postInputform);
       });
     
-      const Initform = (e) => {
-        // setPostInputform({ ...postInputform, [e.target.name]: e.target.value });
-        // props.Initformpersonne_morale(postInputform);
+      const Initform = (e) => {      
         if (e.target.type !== "file") {
           setPostInputform({ ...postInputform, [e.target.name]: e.target.value });
-          // props.Initformnomscollectifs(postInputform);
+       
         } else {
           setPostInputform({
             ...postInputform,
             [e.target.name]: e.target.files[0],
-          });
-          // console.log(postInputform);
-          // props.Initformnomscollectifs(postInputform);
+          });         
         }
       };
     
